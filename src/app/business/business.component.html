@@ -1,0 +1,181 @@
+<div class="container">
+	<div class="row">
+		<div>
+			<!-- Add & Filter Start -->			
+			<div class="col-md-12 marginbottom" >
+				<div class="col-md-6 pull-right">
+					<span class="pull-right btn btn-success" (click)="appState='add'">Add</span>								
+				</div>
+<!-- 				<div class="col-md-6 pull-right">
+					<select (change)="filtercategory(filtercategory.value)" #filtercategory class="form-control">
+						<option value="0">Select</option>
+						<option *ngFor="let category of businesses" value="{{ category.category }}">
+							{{ category.category }}
+						</option>
+					</select>
+				</div>				 -->
+			</div>
+			<!-- Add & Filter End -->			
+
+			<!-- Business List Table Start -->
+			<div *ngIf="businesses" class="col-md-12">
+				<table class="table table-hover table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>Company Name</th>
+							<th>Location</th>
+							<th>Turnover</th>
+							<th>Estd</th>
+							<th># of Employees</th>
+							<th>Category</th>
+							<th>Actions</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr *ngFor="let business of businesses">
+							<td> {{ business.company_name }} </td>
+							<td> {{ business.location }} </td>
+							<td> {{ business.turnover }} </td>
+							<td> {{ business.estd }} </td>
+							<td> {{ business.no_of_employee }} </td>
+							<td> {{ business.category }} </td>
+							<td>
+								<span 
+									class="btn btn-default"
+									(click)="setState('info', business)"
+								>
+									Details
+								</span>								
+								<span 
+									class="btn btn-primary"
+									(click)="seteditBusiness('edit', business)"
+								>
+									Edit
+								</span>
+								<span 
+									class="btn btn-danger"
+									(click)="deleteBusiness(business._id)"
+								>
+									Delete
+								</span>								
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		
+		<!-- Add Business Starts -->
+			<div *ngIf="appState == 'add'" class="setmargin">
+				<div class="row">
+					<div class="col-md-12">
+						<form (ngSubmit)="addBusiness(addbusiness.value)" #addbusiness="ngForm">
+							<div class="form-group col-md-6">
+								<label for="company_name">Company Name</label><br>
+								<input type="text" name="company_name" id="company_name" class="form-control" required ngModel>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="location">Location</label><br>
+								<input type="text" name="location" id="location" class="form-control" required ngModel>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="turnover">Turnover</label><br>
+								<input type="text" name="turnover" id="turnover" class="form-control" required ngModel>
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="estd">Established</label><br>
+								<input type="text" name="estd" id="estd" class="form-control" required ngModel>
+							</div>										
+
+							<div class="form-group col-md-6">
+								<label for="no_of_employee"># of Employee</label><br>
+								<input type="text" name="no_of_employee" id="no_of_employee" class="form-control" required ngModel>
+							</div>										
+
+							<div class="form-group col-md-6">
+								<label for="category">Category</label><br>
+								<input type="text" name="category" id="category" class="form-control" required ngModel>
+							</div>																																			
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-success" [disabled]="!addbusiness.form.valid" [class.disabled]="!addbusiness.form.valid">Add</button>
+								<button class="btn btn-danger" (click)="appState ='default'">Cancel</button>
+							</div>
+						</form>	
+					</div>	
+				</div>									
+			</div>
+		<!-- Add Business Ends -->				
+
+		<!-- Edit Business Starts -->
+			<div *ngIf="appState == 'edit'" class="setmargin">
+				<div class="row">
+					<div class="col-md-12">
+						<form (ngSubmit)="editBusiness('default')" #editbusiness="ngForm">
+							<div class="form-group col-md-6">
+								<label for="company_name">Company Name</label><br>
+								<input type="text" name="company_name" id="company_name" class="form-control" required 
+								[(ngModel)]="editvar_company_name">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="location">Location</label><br>
+								<input type="text" name="location" id="location" class="form-control" required 
+								[(ngModel)]="editvar_location">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="turnover">Turnover</label><br>
+								<input type="text" name="turnover" id="turnover" class="form-control" required 
+								[(ngModel)]="editvar_turnover">
+							</div>
+
+							<div class="form-group col-md-6">
+								<label for="estd">Established</label><br>
+								<input type="text" name="estd" id="estd" class="form-control" required 
+								[(ngModel)]="editvar_estd">
+							</div>										
+
+							<div class="form-group col-md-6">
+								<label for="no_of_employee"># of Employee</label><br>
+								<input type="text" name="no_of_employee" id="no_of_employee" class="form-control" required 
+								[(ngModel)]="editvar_no_of_employee">
+							</div>										
+
+							<div class="form-group col-md-6">
+								<label for="category">Category</label><br>
+								<input type="text" name="category" id="category" class="form-control" required 
+								[(ngModel)]="editvar_category">
+							</div>																																			
+							<div class="col-md-12">
+								<button type="submit" class="btn btn-success" [disabled]="!editbusiness.form.valid" [class.disabled]="!editbusiness.form.valid">Save</button>
+								<button class="btn btn-danger" (click)="appState ='default'">Cancel</button>
+							</div>
+						</form>	
+					</div>	
+				</div>									
+			</div>
+		<!-- Edit Business Ends -->				
+
+		<!-- View Info Starts -->
+			<div *ngIf="appState == 'info'" class="setmargin">
+				<div class="row">
+					<div class="col-md-12 infocontainer text-center">
+						<div class="col-md-6 info"><strong>Company Name: </strong>{{ business.company_name }} </div>
+						<div class="col-md-6 info"><strong>Company Location: </strong> {{ business.location }} </div>
+						<div class="col-md-6 info"><strong>Turnover: </strong> {{ business.turnover }} </div>
+						<div class="col-md-6 info"><strong>Established: </strong> {{ business.estd }} </div>				
+						<div class="col-md-6 info"><strong># of Employees: </strong> {{ business.no_of_employee }} </div>
+						<div class="col-md-6 info"><strong>Company Category: </strong> {{ business.category }} </div>
+						<hr>
+						<div class="col-md-12"><button class="btn btn-danger" (click)="appState ='default'">Cancel</button></div>
+					</div>	
+				</div>									
+			</div>
+		<!-- View Info Ends -->	
+
+
+		</div>
+	</div>
+</div>

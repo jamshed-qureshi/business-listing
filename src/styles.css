@@ -1,0 +1,21 @@
+/* You can add global styles to this file, and also import other style files */
+.btns input {
+	margin-right: 5px;
+	margin-bottom: 3px;
+
+}
+
+.marginbottom {
+	margin-bottom: 10px;
+}
+
+.col-md-6.info {
+    padding: 10px;
+}
+
+.col-md-12.infocontainer {
+    background-color: #d9edf7;
+    border: 1px solid grey;
+    border-radius: 10px;
+    padding: 5px;
+}
